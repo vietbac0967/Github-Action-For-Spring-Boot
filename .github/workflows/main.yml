@@ -42,47 +42,12 @@ jobs:
     - name: Build the application
       run: mvn -B package --file pom.xml
 
-    - name: Login to Docker Hub
-      uses: docker/login-action@v1 
+    - name: Build & push Docker image
+      uses: mr-smithers-excellent/docker-build-push@v5
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v2
-      with:
-        context: .
-        push: true
-        tags: vietbac/spring-boot-for-beginners:latest
+        image: ${{ secrets.DOCKER_USERNAME }}/spring-boot-for-beginners
+        tags: latest
         registry: docker.io
         dockerfile: Dockerfile
-
-    # - name: Build Docker Image
-    #   uses: docker/build-push-action@v2
-    #   with:
-    #     context: .
-    #     dockerfile: Dockerfile
-    #     push: false
-    #     tags: ${{ secrets.DOCKER_HUB_USERNAME }}/spring-boot-for-beginners:today
-    # - name: Login to Docker Hub
-    #   uses: docker/login-action@v1
-    #   with:
-    #     username: ${{ secrets.DOCKER_HUB_USERNAME }}
-    #     password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-
-    # - name: Push to Docker Hub
-    #   uses: docker/build-push-action@v2
-    #   with:
-    #     context: .
-    #     dockerfile: Dockerfile
-    #     push: true
-    #     tags: ${{ secrets.DOCKER_HUB_USERNAME }}/spring-boot-for-beginners:today
-
-
-
-
-
-
-    # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
-#    - name: Update dependency graph
-#      uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_PASSWORD }}
