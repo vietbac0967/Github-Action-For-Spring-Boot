@@ -29,8 +29,8 @@ jobs:
         with:
           args: >
               -Dsonar.organization=vietbac0967
-              -Dsonar.projectKey=Github-Action-For-Spring-Boot
-              -Dsonar.python.coverage.reportPaths=coverage.xml
+              -Dsonar.projectKey=vietbac0967_Github-Action-For-Spring-Boot
+              
   test:
     runs-on: ubuntu-latest
     steps:
